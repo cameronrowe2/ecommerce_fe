@@ -1,0 +1,18 @@
+.product {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+body {
+  margin: 40px;
+}
+
+.cart-wrapper {
+  display: grid;
+  grid-template-columns: 300px 100px 150px 100px 100px;
+  /* grid-gap: 10px; */
+}
+
+.cart-item {
+  /* padding: 20px; */
+}
