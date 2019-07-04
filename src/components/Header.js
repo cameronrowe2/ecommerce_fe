@@ -44,6 +44,9 @@ class Header extends React.Component {
           <Link className="item" to="/adminproducts">
             Products
           </Link>
+          <Link className="item" to="/adminusers">
+            Users
+          </Link>
           <div className="right menu">
             <div
               className="ui item"

@@ -15,6 +15,9 @@ import AdminPage from "./pages/AdminPage";
 import AdminProductsPage from "./pages/AdminProductsPage";
 import AdminProductsEditPage from "./pages/AdminProductsEditPage";
 import AdminProductsAddPage from "./pages/AdminProductsAddPage";
+import AdminUsersPage from "./pages/AdminUsersPage";
+import AdminUsersAddPage from "./pages/AdminUsersAddPage";
+import AdminUsersEditPage from "./pages/AdminUsersEditPage";
 
 const App = () => {
   return (
@@ -43,6 +46,13 @@ const App = () => {
               path="/adminproductsadd"
               exact
               component={AdminProductsAddPage}
+            />
+            <Route path="/adminusers" exact component={AdminUsersPage} />
+            <Route path="/adminusersadd" exact component={AdminUsersAddPage} />
+            <Route
+              path="/adminusers/:id"
+              exact
+              component={AdminUsersEditPage}
             />
           </Switch>
         </div>

@@ -9,6 +9,13 @@ import {
   IS_ADMIN_SIGNED_IN,
   ADMIN_EDIT_PRODUCT,
   ADMIN_ADD_PRODUCT,
+  ADMIN_FETCH_USERS,
+  ADMIN_FETCH_USER,
+  ADMIN_ADD_USER,
+  ADMIN_REMOVE_USER,
+  ADMIN_CHANGE_EMAIL,
+  ADMIN_CHANGE_NAME,
+  ADMIN_CHANGE_PASSWORD,
   FETCH_PRODUCTS,
   FETCH_PRODUCT,
   ADD_PRODUCT_CART,
@@ -17,7 +24,8 @@ import {
   GET_PRODUCTS_CART,
   CHECKOUT,
   FETCH_ORDERS,
-  FETCH_ORDER
+  FETCH_ORDER,
+  ADMIN_REMOVE_PRODUCT
 } from "./types";
 
 export const signIn = (values, callback) => async dispatch => {
@@ -137,4 +145,60 @@ export const adminAddProduct = values => async dispatch => {
   const response = await endpoint.post("/admin_add_product", values);
 
   dispatch({ type: ADMIN_ADD_PRODUCT, payload: response.data });
+};
+
+export const adminFetchUsers = () => async dispatch => {
+  const response = await endpoint.post("/admin_users");
+
+  dispatch({ type: ADMIN_FETCH_USERS, payload: response.data });
+};
+
+export const adminFetchUser = id => async dispatch => {
+  const response = await endpoint.post(`/admin_user`, {
+    id
+  });
+  dispatch({ type: ADMIN_FETCH_USER, payload: response.data });
+};
+
+export const adminRemoveProduct = product_id => async dispatch => {
+  const response = await endpoint.post("/admin_remove_product", {
+    id: product_id
+  });
+
+  dispatch({ type: ADMIN_REMOVE_PRODUCT, payload: response.data });
+};
+
+export const adminAddUser = (values, callback) => async dispatch => {
+  const response = await endpoint.post("/admin_add_user", values);
+
+  dispatch({ type: ADMIN_ADD_USER, payload: response.data });
+  if (response.data.success) {
+    callback();
+  }
+};
+
+export const adminRemoveUser = id => async dispatch => {
+  const response = await endpoint.post("/admin_remove_user", {
+    id
+  });
+
+  dispatch({ type: ADMIN_REMOVE_USER, payload: response.data });
+};
+
+export const adminChangeName = values => async dispatch => {
+  const response = await endpoint.post("/admin_change_name", values);
+
+  dispatch({ type: ADMIN_CHANGE_NAME, payload: response.data });
+};
+
+export const adminChangeEmail = values => async dispatch => {
+  const response = await endpoint.post("/admin_change_email", values);
+
+  dispatch({ type: ADMIN_CHANGE_EMAIL, payload: response.data });
+};
+
+export const adminChangePassword = values => async dispatch => {
+  const response = await endpoint.post("/admin_change_password", values);
+
+  dispatch({ type: ADMIN_CHANGE_PASSWORD, payload: response.data });
 };

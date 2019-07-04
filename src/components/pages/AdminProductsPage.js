@@ -1,29 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchProducts } from "../../actions";
+import { fetchProducts, adminRemoveProduct } from "../../actions";
 import { Link } from "react-router-dom";
+import requireAdminAuth from "../requireAdminAuth";
 
 class ProductsPage extends React.Component {
   componentDidMount() {
     this.props.fetchProducts();
   }
-
-  //   renderCartButton(product_id) {
-  //     if (this.props.is_signed_in) {
-  //       return (
-  //         <button
-  //           className="ui button"
-  //           onClick={() => {
-  //             this.props.addCartProduct(product_id);
-  //           }}
-  //         >
-  //           Add to Cart
-  //         </button>
-  //       );
-  //     } else {
-  //       return null;
-  //     }
-  //   }
 
   renderHeader() {
     return (
@@ -40,7 +24,7 @@ class ProductsPage extends React.Component {
   renderList() {
     return this.props.products.map(product => {
       return (
-        <React.Fragment key={product.sku}>
+        <React.Fragment key={product.id}>
           <div className="one wide column">{product.id}</div>
           <div className="one wide column">
             <img
@@ -70,7 +54,7 @@ class ProductsPage extends React.Component {
               <button
                 className="ui button"
                 onClick={() => {
-                  console.log("here");
+                  this.props.adminRemoveProduct(product.id);
                 }}
               >
                 Delete
@@ -105,7 +89,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { fetchProducts }
-)(ProductsPage);
+export default requireAdminAuth(
+  connect(
+    mapStateToProps,
+    { fetchProducts, adminRemoveProduct }
+  )(ProductsPage)
+);

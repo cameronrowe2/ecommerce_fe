@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {} from "../../actions";
+import requireAdminAuth from "../requireAdminAuth";
 
 class AdminPage extends React.Component {
   componentDidMount() {}
@@ -29,7 +30,9 @@ class AdminPage extends React.Component {
 //   };
 // };
 
-export default connect(
-  null,
-  null
-)(AdminPage);
+export default requireAdminAuth(
+  connect(
+    null,
+    null
+  )(AdminPage)
+);

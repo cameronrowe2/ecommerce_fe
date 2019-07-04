@@ -3,6 +3,7 @@ import authReducer from "./authReducer";
 import productsReducer from "./productsReducer";
 import ordersReducer from "./ordersReducer";
 import cartReducer from "./cartReducer";
+import usersReducer from "./usersReducer";
 import { reducer as formReducer } from "redux-form";
 
 export default combineReducers({
@@ -10,5 +11,6 @@ export default combineReducers({
   products: productsReducer,
   cart: cartReducer,
   form: formReducer,
-  orders: ordersReducer
+  orders: ordersReducer,
+  users: usersReducer
 });

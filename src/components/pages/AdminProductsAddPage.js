@@ -2,6 +2,7 @@ import React from "react";
 import { adminAddProduct } from "../../actions";
 import { connect } from "react-redux";
 import AdminProductsForm from "../AdminProductsForm";
+import requireAdminAuth from "../requireAdminAuth";
 
 class AdminProductsEditPage extends React.Component {
   onSubmit = formValues => {
@@ -17,7 +18,9 @@ class AdminProductsEditPage extends React.Component {
 //   return { product: state.products[ownProps.match.params.id] };
 // };
 
-export default connect(
-  null,
-  { adminAddProduct }
-)(AdminProductsEditPage);
+export default requireAdminAuth(
+  connect(
+    null,
+    { adminAddProduct }
+  )(AdminProductsEditPage)
+);

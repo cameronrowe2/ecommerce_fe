@@ -3,7 +3,8 @@ import {
   FETCH_PRODUCTS,
   FETCH_PRODUCT,
   ADMIN_EDIT_PRODUCT,
-  ADMIN_ADD_PRODUCT
+  ADMIN_ADD_PRODUCT,
+  ADMIN_REMOVE_PRODUCT
 } from "../actions/types";
 
 export default (state = {}, action) => {
@@ -16,6 +17,8 @@ export default (state = {}, action) => {
       return { ...state, [action.payload.data.id]: action.payload.data };
     case ADMIN_ADD_PRODUCT:
       return { ...state, [action.payload.data.id]: action.payload.data };
+    case ADMIN_REMOVE_PRODUCT:
+      return _.omit(state, action.payload.data.product_id);
     default:
       return state;
   }
