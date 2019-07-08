@@ -18,6 +18,9 @@ import AdminProductsAddPage from "./pages/AdminProductsAddPage";
 import AdminUsersPage from "./pages/AdminUsersPage";
 import AdminUsersAddPage from "./pages/AdminUsersAddPage";
 import AdminUsersEditPage from "./pages/AdminUsersEditPage";
+import AdminOrdersPage from "./pages/AdminOrdersPage";
+import AdminOrderPage from "./pages/AdminOrderPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 const App = () => {
   return (
@@ -34,6 +37,7 @@ const App = () => {
             <Route path="/signup" exact component={SignUpPage} />
             <Route path="/orders" exact component={OrdersPage} />
             <Route path="/orders/:id" exact component={OrderPage} />
+            <Route path="/checkout" exact component={CheckoutPage} />
             <Route path="/adminsignin" exact component={AdminSignInPage} />
             <Route path="/admin" exact component={AdminPage} />
             <Route path="/adminproducts" exact component={AdminProductsPage} />
@@ -54,6 +58,8 @@ const App = () => {
               exact
               component={AdminUsersEditPage}
             />
+            <Route path="/adminorders" exact component={AdminOrdersPage} />
+            <Route path="/adminorders/:id" exact component={AdminOrderPage} />
           </Switch>
         </div>
       </Router>

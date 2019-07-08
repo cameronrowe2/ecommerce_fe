@@ -13,13 +13,15 @@ class Header extends React.Component {
 
   render() {
     if (!this.props.is_admin_signed_in) {
-      let orders = "";
+      let orders = "",
+        cart = "";
       if (this.props.is_signed_in) {
         orders = (
           <Link className="item" to="/orders">
             Orders
           </Link>
         );
+        cart = <Cart />;
       }
 
       return (
@@ -30,7 +32,7 @@ class Header extends React.Component {
           <Link className="item" to="/products">
             Products
           </Link>
-          <Cart />
+          {cart}
           {orders}
           <Auth />
         </div>
@@ -46,6 +48,9 @@ class Header extends React.Component {
           </Link>
           <Link className="item" to="/adminusers">
             Users
+          </Link>
+          <Link className="item" to="/adminorders">
+            Orders
           </Link>
           <div className="right menu">
             <div

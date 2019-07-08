@@ -34,7 +34,7 @@ class AdminUsersPage extends React.Component {
           <div className="five wide column">{user.email}</div>
           <div className="two wide column">
             <div>
-              <Link className="ui button" to={`/adminusersedit/${user.id}`}>
+              <Link className="ui button" to={`/adminusers/${user.id}`}>
                 Edit
               </Link>
             </div>

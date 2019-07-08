@@ -73,6 +73,9 @@ class ProductsPage extends React.Component {
         <Link to={`/adminproductsadd`} className="ui button">
           Add Product
         </Link>
+        <Link to={`/adminproductsimport`} className="ui button">
+          Import Products
+        </Link>
         <div className="ui grid">
           {this.renderHeader()}
           {this.renderList()}

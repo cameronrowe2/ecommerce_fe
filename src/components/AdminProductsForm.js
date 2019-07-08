@@ -46,6 +46,28 @@ class AdminProductsForm extends React.Component {
         />
         <Field name="price" component={this.renderInput} label="Enter Price" />
         <Field name="sku" component={this.renderInput} label="Enter SKU" />
+
+        <Field
+          name="weight"
+          component={this.renderInput}
+          label="Enter Weight (kgs)"
+        />
+        <Field
+          name="height"
+          component={this.renderInput}
+          label="Enter Height (cms)"
+        />
+        <Field
+          name="width"
+          component={this.renderInput}
+          label="Enter Width (cms)"
+        />
+        <Field
+          name="length"
+          component={this.renderInput}
+          label="Enter Length (cms)"
+        />
+
         <button className="ui button primary">Submit</button>
       </form>
     );

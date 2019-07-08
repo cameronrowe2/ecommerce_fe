@@ -16,6 +16,8 @@ import {
   ADMIN_CHANGE_EMAIL,
   ADMIN_CHANGE_NAME,
   ADMIN_CHANGE_PASSWORD,
+  ADMIN_FETCH_ORDERS,
+  ADMIN_FETCH_ORDER,
   FETCH_PRODUCTS,
   FETCH_PRODUCT,
   ADD_PRODUCT_CART,
@@ -25,8 +27,11 @@ import {
   CHECKOUT,
   FETCH_ORDERS,
   FETCH_ORDER,
-  ADMIN_REMOVE_PRODUCT
+  ADMIN_REMOVE_PRODUCT,
+  DELIVERY,
+  SET_DELIVERY_OPTION
 } from "./types";
+import { async } from "q";
 
 export const signIn = (values, callback) => async dispatch => {
   const response = await endpoint.post("/signin", values);
@@ -95,10 +100,13 @@ export const getCartProducts = () => async dispatch => {
   dispatch({ type: GET_PRODUCTS_CART, payload: response.data });
 };
 
-export const checkout = () => async dispatch => {
-  const response = await endpoint.post(`/checkout`);
+export const checkout = (values, callback) => async dispatch => {
+  const response = await endpoint.post(`/checkout`, values);
 
   dispatch({ type: CHECKOUT, payload: response.data });
+  if (response.data.success) {
+    callback();
+  }
 };
 
 export const fetchOrders = () => async dispatch => {
@@ -201,4 +209,27 @@ export const adminChangePassword = values => async dispatch => {
   const response = await endpoint.post("/admin_change_password", values);
 
   dispatch({ type: ADMIN_CHANGE_PASSWORD, payload: response.data });
+};
+
+export const fetchAdminOrders = () => async dispatch => {
+  const response = await endpoint.post(`/admin_orders`);
+
+  dispatch({ type: ADMIN_FETCH_ORDERS, payload: response.data });
+};
+
+export const fetchAdminOrder = id => async dispatch => {
+  const response = await endpoint.post(`/admin_order`, {
+    order_id: id
+  });
+  dispatch({ type: ADMIN_FETCH_ORDER, payload: response.data });
+};
+
+export const deliveryOptions = values => async dispatch => {
+  const response = await endpoint.post("/delivery", values);
+
+  dispatch({ type: DELIVERY, payload: response.data });
+};
+
+export const setDeliveryOption = deliveryoption => {
+  return { type: SET_DELIVERY_OPTION, payload: deliveryoption };
 };

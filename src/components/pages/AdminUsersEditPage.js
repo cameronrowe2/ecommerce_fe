@@ -37,8 +37,7 @@ class AdminUsersAddPage extends React.Component {
         <AdminChangePassword
           initialValues={this.props.admin_user}
           onSubmit={values => {
-            // this.props.adminChangePassword(values);
-            console.log(values);
+            this.props.adminChangePassword(values);
           }}
         />
       </div>

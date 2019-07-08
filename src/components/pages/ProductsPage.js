@@ -29,7 +29,7 @@ class ProductsPage extends React.Component {
     console.log(this.props.products);
     return this.props.products.map(product => {
       return (
-        <div className="four wide column" key={product.sku}>
+        <div className="four wide column" key={product.id}>
           <i />
           <div>
             <Link className="ui large" to={`/products/${product.id}`}>

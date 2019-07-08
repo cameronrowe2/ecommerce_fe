@@ -13,12 +13,12 @@ class AdminSignInPage extends React.Component {
     });
   };
 
-  renderInput = ({ input, label, meta }) => {
+  renderInput = ({ input, label, type }) => {
     // const className = `field ${meta.error && meta.touched ? "error" : ""}`;
     return (
       <div>
         <label>{label}</label>
-        <input {...input} />
+        <input {...input} type={type} />
         {/* {this.renderError(meta)} */}
       </div>
     );

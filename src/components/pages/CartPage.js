@@ -7,6 +7,7 @@ import {
   addCartProduct,
   checkout
 } from "../../actions";
+import { Link } from "react-router-dom";
 
 class CartPage extends React.Component {
   componentDidMount() {
@@ -27,7 +28,6 @@ class CartPage extends React.Component {
 
   renderList() {
     return this.props.cart.cart_items.map(item => {
-      console.log(item);
       return (
         <React.Fragment key={item.product_id}>
           <div class="four wide column">{item.product_title}</div>
@@ -83,14 +83,15 @@ class CartPage extends React.Component {
         <div class="four wide column" />
         <div class="four wide column" />
         <div class="two wide column">
-          <button
+          <Link
             className="ui button"
-            onClick={() => {
-              this.props.checkout();
-            }}
+            to="/checkout"
+            // onClick={() => {
+            //   // this.props.checkout();
+            // }}
           >
             Checkout
-          </button>
+          </Link>
         </div>
         <div class="two wide column" />
       </React.Fragment>

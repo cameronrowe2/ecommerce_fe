@@ -4,6 +4,7 @@ import productsReducer from "./productsReducer";
 import ordersReducer from "./ordersReducer";
 import cartReducer from "./cartReducer";
 import usersReducer from "./usersReducer";
+import deliveryReducer from "./deliveryReducer";
 import { reducer as formReducer } from "redux-form";
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
   cart: cartReducer,
   form: formReducer,
   orders: ordersReducer,
-  users: usersReducer
+  users: usersReducer,
+  delivery: deliveryReducer
 });

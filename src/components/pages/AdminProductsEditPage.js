@@ -14,6 +14,7 @@ class AdminProductsEditPage extends React.Component {
   };
 
   render() {
+    console.log(this.props.product);
     return (
       <AdminProductsForm
         onSubmit={this.onSubmit}
@@ -27,9 +28,9 @@ const mapStateToProps = (state, ownProps) => {
   return { product: state.products[ownProps.match.params.id] };
 };
 
-export default requireAdminAuth(
-  connect(
-    mapStateToProps,
-    { fetchProduct, adminEditProduct }
-  )(AdminProductsEditPage)
-);
+export default /*requireAdminAuth(*/
+connect(
+  mapStateToProps,
+  { fetchProduct, adminEditProduct }
+)(AdminProductsEditPage);
+/*);*/
