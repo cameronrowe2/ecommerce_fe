@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchAdminOrder } from "../../actions";
 import { Link } from "react-router-dom";
+import requireAdminAuth from "../requireAdminAuth";
 
 class AdminOrderPage extends React.Component {
   componentDidMount() {
@@ -74,7 +75,9 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { fetchAdminOrder }
-)(AdminOrderPage);
+export default requireAdminAuth(
+  connect(
+    mapStateToProps,
+    { fetchAdminOrder }
+  )(AdminOrderPage)
+);

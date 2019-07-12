@@ -1,5 +1,5 @@
 import React from "react";
-import { signIn } from "../../actions";
+import { signIn, fetchCurrentUser } from "../../actions";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import history from "../../history";
@@ -11,6 +11,7 @@ class SignInPage extends React.Component {
     console.log(formValues);
     this.props.signIn(formValues, () => {
       history.push("/");
+      this.props.fetchCurrentUser();
     });
   };
 
@@ -60,6 +61,6 @@ const signInPage = reduxForm({
 export default requireNoAuth(
   connect(
     null,
-    { signIn }
+    { signIn, fetchCurrentUser }
   )(signInPage)
 );

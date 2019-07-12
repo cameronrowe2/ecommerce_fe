@@ -27,6 +27,35 @@ class AdminProductsForm extends React.Component {
     this.props.onSubmit(formValues);
   };
 
+  renderSelect = ({ input, label }) => {
+    const options = this.props.categories.map(category => {
+      if (
+        this.props.initialValues &&
+        this.props.initialValues.category_id == category.id
+      ) {
+        return (
+          <option key={category.id} value={category.id} selected>
+            {category.title}
+          </option>
+        );
+      } else {
+        return (
+          <option key={category.id} value={category.id}>
+            {category.title}
+          </option>
+        );
+      }
+    });
+
+    return (
+      <div /*className={className}*/>
+        <label>{label}</label>
+        <select {...input}>{options}</select>
+        {/* {this.renderError(meta)} */}
+      </div>
+    );
+  };
+
   render() {
     return (
       <form
@@ -45,6 +74,11 @@ class AdminProductsForm extends React.Component {
           label="Enter Image URL"
         />
         <Field name="price" component={this.renderInput} label="Enter Price" />
+        <Field
+          name="price_deal"
+          component={this.renderInput}
+          label="Enter Deal Price"
+        />
         <Field name="sku" component={this.renderInput} label="Enter SKU" />
 
         <Field
@@ -67,7 +101,11 @@ class AdminProductsForm extends React.Component {
           component={this.renderInput}
           label="Enter Length (cms)"
         />
-
+        <Field
+          name="category_id"
+          component={this.renderSelect}
+          label="Select Category"
+        />
         <button className="ui button primary">Submit</button>
       </form>
     );

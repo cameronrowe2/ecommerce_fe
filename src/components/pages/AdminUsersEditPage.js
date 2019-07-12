@@ -11,6 +11,7 @@ import history from "../../history";
 import AdminChangeEmail from "../AdminChangeEmail";
 import AdminChangeName from "../AdminChangeName";
 import AdminChangePassword from "../AdminChangePassword";
+import requireAdminAuth from "../requireAdminAuth";
 
 class AdminUsersAddPage extends React.Component {
   componentDidMount() {
@@ -49,7 +50,9 @@ const mapStateToProps = (state, ownProps) => {
   return { admin_user: state.users[ownProps.match.params.id] };
 };
 
-export default connect(
-  mapStateToProps,
-  { adminFetchUser, adminChangeEmail, adminChangeName, adminChangePassword }
-)(AdminUsersAddPage);
+export default requireAdminAuth(
+  connect(
+    mapStateToProps,
+    { adminFetchUser, adminChangeEmail, adminChangeName, adminChangePassword }
+  )(AdminUsersAddPage)
+);

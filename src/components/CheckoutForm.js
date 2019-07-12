@@ -23,7 +23,13 @@ class CheckoutForm extends Component {
             token_id: payload.token.id,
             delivery_code: this.props.delivery.option.code,
             delivery_name: this.props.delivery.option.name,
-            delivery_price: this.props.delivery.option.price
+            delivery_price: this.props.delivery.option.price,
+
+            delivery_address: this.props.delivery.address.address,
+            delivery_suburb: this.props.delivery.address.suburb,
+            delivery_postcode: this.props.delivery.address.postcode,
+            delivery_country: this.props.delivery.address.country,
+            delivery_email: this.props.delivery.address.email
           },
           () => {
             history.push("/");
@@ -44,12 +50,14 @@ class CheckoutForm extends Component {
       ""
     );
 
+    const cardElement = this.props.delivery.option ? <CardElement /> : "";
+
     return (
       <div className="checkout">
         <p>Would you like to complete the purchase?</p>
         <p>Total: ${this.props.cart.total_price}</p>
         <Delivery />
-        <CardElement />
+        {cardElement}
         {sendBtn}
       </div>
     );

@@ -17,11 +17,11 @@ class CartPage extends React.Component {
   renderHeader() {
     return (
       <React.Fragment>
-        <div class="four wide column">Product</div>
-        <div class="four wide column">Product Price</div>
-        <div class="four wide column">Quantity</div>
-        <div class="two wide column">Quantity Price</div>
-        <div class="two wide column" />
+        <div className="four wide column">Product</div>
+        <div className="four wide column">Product Price</div>
+        <div className="four wide column">Quantity</div>
+        <div className="two wide column">Quantity Price</div>
+        <div className="two wide column" />
       </React.Fragment>
     );
   }
@@ -30,9 +30,9 @@ class CartPage extends React.Component {
     return this.props.cart.cart_items.map(item => {
       return (
         <React.Fragment key={item.product_id}>
-          <div class="four wide column">{item.product_title}</div>
-          <div class="four wide column">${item.product_price}</div>
-          <div class="four wide column">
+          <div className="four wide column">{item.product_title}</div>
+          <div className="four wide column">${item.product_price}</div>
+          <div className="four wide column">
             <button
               className="ui button mini"
               onClick={() => {
@@ -51,10 +51,10 @@ class CartPage extends React.Component {
               +
             </button>
           </div>
-          <div class="two wide column">
+          <div className="two wide column">
             ${item.quantity * item.product_price}
           </div>
-          <div class="two wide column">
+          <div className="two wide column">
             <button
               className="ui button"
               onClick={() => {
@@ -72,17 +72,17 @@ class CartPage extends React.Component {
   renderPrice() {
     return (
       <React.Fragment>
-        <div class="four wide column">
+        <div className="four wide column">
           <h2>Total Price</h2>
         </div>
-        <div class="four wide column" />
-        <div class="four wide column" />
-        <div class="two wide column">${this.props.cart.total_price}</div>
-        <div class="two wide column" />
-        <div class="four wide column" />
-        <div class="four wide column" />
-        <div class="four wide column" />
-        <div class="two wide column">
+        <div className="four wide column" />
+        <div className="four wide column" />
+        <div className="two wide column">${this.props.cart.total_price}</div>
+        <div className="two wide column" />
+        <div className="four wide column" />
+        <div className="four wide column" />
+        <div className="four wide column" />
+        <div className="two wide column">
           <Link
             className="ui button"
             to="/checkout"
@@ -93,9 +93,28 @@ class CartPage extends React.Component {
             Checkout
           </Link>
         </div>
-        <div class="two wide column" />
+        <div className="two wide column" />
       </React.Fragment>
     );
+  }
+
+  renderCart() {
+    if (this.props.cart.cart_items.length === 0) {
+      return (
+        <div>
+          <div>There's nothing in your cart!</div>
+          <Link to="/products">Check out our Products!</Link>
+        </div>
+      );
+    } else {
+      return (
+        <div className="ui grid cart">
+          {this.renderHeader()}
+          {this.renderList()}
+          {this.renderPrice()}
+        </div>
+      );
+    }
   }
 
   render() {
@@ -105,11 +124,7 @@ class CartPage extends React.Component {
       return (
         <div>
           <h1>Cart</h1>
-          <div class="ui grid">
-            {this.renderHeader()}
-            {this.renderList()}
-            {this.renderPrice()}
-          </div>
+          {this.renderCart()}
         </div>
       );
     }

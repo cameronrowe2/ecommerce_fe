@@ -15,7 +15,6 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_PRODUCT_CART:
-      console.log(action.payload);
       // return { ...state, [action.payload.id]: action.payload };
       // return [...action.payload];
       return { ...state, ...action.payload.data };

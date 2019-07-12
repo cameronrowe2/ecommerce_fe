@@ -3,28 +3,41 @@ import Auth from "./Auth";
 import Cart from "./Cart";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { isAdminSignedIn, adminSignOut } from "../actions";
+import { isAdminSignedIn, adminSignOut, fetchCurrentUser } from "../actions";
+import SearchBar from "./SearchBar";
+import EmailValidation from "./EmailValidation";
 
 // const Header = props => {
 class Header extends React.Component {
   componentDidMount() {
     this.props.isAdminSignedIn();
+    this.props.fetchCurrentUser();
   }
 
   render() {
+    let headerElements;
+    const headerClass = this.props.is_admin_signed_in
+      ? "admin-header-menu"
+      : "header-menu";
+
     if (!this.props.is_admin_signed_in) {
       let orders = "",
-        cart = "";
+        cart = "",
+        wishlist = "";
       if (this.props.is_signed_in) {
         orders = (
           <Link className="item" to="/orders">
             Orders
           </Link>
         );
-        cart = <Cart />;
+        wishlist = (
+          <Link className="item" to="/wishlist">
+            Wishlist
+          </Link>
+        );
       }
 
-      return (
+      headerElements = (
         <div className="ui secondary pointing menu">
           <Link className="item" to="/">
             Home
@@ -32,13 +45,15 @@ class Header extends React.Component {
           <Link className="item" to="/products">
             Products
           </Link>
-          {cart}
+          <Cart />
           {orders}
+          {wishlist}
+          <SearchBar />
           <Auth />
         </div>
       );
     } else {
-      return (
+      headerElements = (
         <div className="ui secondary pointing menu">
           <Link className="item" to="/admin">
             Home
@@ -51,6 +66,9 @@ class Header extends React.Component {
           </Link>
           <Link className="item" to="/adminorders">
             Orders
+          </Link>
+          <Link className="item" to="/admincategories">
+            Categories
           </Link>
           <div className="right menu">
             <div
@@ -65,6 +83,26 @@ class Header extends React.Component {
         </div>
       );
     }
+
+    let emailValidation;
+    if (
+      this.props.is_signed_in &&
+      this.props.user.email_validated === 0 &&
+      !this.props.verification_email_sent
+    ) {
+      emailValidation = <EmailValidation />;
+    } else {
+      emailValidation = "";
+    }
+
+    return (
+      <div>
+        <div className={headerClass}>
+          <div className="ui container">{headerElements}</div>
+        </div>
+        {emailValidation}
+      </div>
+    );
   }
 }
 
@@ -73,11 +111,13 @@ class Header extends React.Component {
 const mapStateToProps = state => {
   return {
     is_signed_in: state.auth.is_signed_in,
-    is_admin_signed_in: state.auth.is_admin_signed_in
+    is_admin_signed_in: state.auth.is_admin_signed_in,
+    user: state.user.user,
+    verification_email_sent: state.user.verification_email_sent
   };
 };
 
 export default connect(
   mapStateToProps,
-  { isAdminSignedIn, adminSignOut }
+  { isAdminSignedIn, adminSignOut, fetchCurrentUser }
 )(Header);

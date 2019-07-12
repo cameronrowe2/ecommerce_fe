@@ -63,7 +63,7 @@ class AdminUsersPage extends React.Component {
         <Link to={`/adminusersadd`} className="ui button">
           Add User
         </Link>
-        <div className="ui grid">
+        <div className="ui grid adminusers">
           {this.renderHeader()}
           {this.renderList()}
         </div>
@@ -78,9 +78,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default /*requireAdminAuth(*/
-connect(
-  mapStateToProps,
-  { adminFetchUsers, adminRemoveUser }
-)(AdminUsersPage);
-/*);*/
+export default requireAdminAuth(
+  connect(
+    mapStateToProps,
+    { adminFetchUsers, adminRemoveUser }
+  )(AdminUsersPage)
+);

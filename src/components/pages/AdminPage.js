@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import {} from "../../actions";
 import requireAdminAuth from "../requireAdminAuth";
+import { Link } from "react-router-dom";
 
 class AdminPage extends React.Component {
   componentDidMount() {}
@@ -9,14 +10,23 @@ class AdminPage extends React.Component {
   render() {
     return (
       <div>
-        <div>Admin</div>
-        <button
-          onClick={() => {
-            console.log("test");
-          }}
-        >
-          Click Me
-        </button>
+        <div className="ui grid">
+          <Link className="eight wide column large-button" to="/adminproducts">
+            <div>Products</div>
+          </Link>
+          <Link className="eight wide column large-button" to="/adminusers">
+            <div>Users</div>
+          </Link>
+          <Link className="eight wide column large-button" to="/adminorders">
+            <div>Orders</div>
+          </Link>
+          <Link
+            className="eight wide column large-button"
+            to="/admincategories"
+          >
+            <div>Categories</div>
+          </Link>
+        </div>
       </div>
     );
   }

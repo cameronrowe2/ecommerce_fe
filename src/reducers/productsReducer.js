@@ -7,18 +7,32 @@ import {
   ADMIN_REMOVE_PRODUCT
 } from "../actions/types";
 
-export default (state = {}, action) => {
+const INITIAL_STATE = {
+  products: {},
+  total_pages: undefined
+};
+
+export default (state = INITIAL_STATE, action) => {
+  let products;
   switch (action.type) {
     case FETCH_PRODUCTS:
-      return { ..._.mapKeys(action.payload.data, "id") };
+      products = { ..._.mapKeys(action.payload.data.products, "id") };
+      return {
+        ...state,
+        products,
+        total_pages: action.payload.data.total_pages
+      };
     case FETCH_PRODUCT:
-      return { ...state, [action.payload.data.id]: action.payload.data };
     case ADMIN_EDIT_PRODUCT:
-      return { ...state, [action.payload.data.id]: action.payload.data };
     case ADMIN_ADD_PRODUCT:
-      return { ...state, [action.payload.data.id]: action.payload.data };
+      products = {
+        ...state.products,
+        [action.payload.data.id]: action.payload.data
+      };
+      return { ...state, products };
+    // return { ...state, [action.payload.data.id]: action.payload.data };
     case ADMIN_REMOVE_PRODUCT:
-      return _.omit(state, action.payload.data.product_id);
+      return _.omit(state.products, action.payload.data.product_id);
     default:
       return state;
   }

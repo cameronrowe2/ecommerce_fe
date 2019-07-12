@@ -29,15 +29,19 @@ class Delivery extends Component {
   };
 
   render() {
-    return (
-      <form
-        onSubmit={this.props.handleSubmit(this.onSelect)}
-        className="ui form error"
-      >
-        {this.renderDeliveryOptions()}
-        <button className="ui button primary">Submit</button>
-      </form>
-    );
+    if (this.props.delivery && this.props.delivery.options.length > 0) {
+      return (
+        <form
+          onSubmit={this.props.handleSubmit(this.onSelect)}
+          className="ui form error"
+        >
+          {this.renderDeliveryOptions()}
+          <button className="ui button primary">Submit</button>
+        </form>
+      );
+    } else {
+      return "";
+    }
   }
 }
 

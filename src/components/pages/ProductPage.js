@@ -12,15 +12,11 @@ class ProductPage extends React.Component {
   };
 
   renderCartButton() {
-    if (this.props.is_signed_in) {
-      return (
-        <button className="ui button" onClick={this.onAddToCartClick}>
-          Add to Cart
-        </button>
-      );
-    } else {
-      return null;
-    }
+    return (
+      <button className="ui button cart" onClick={this.onAddToCartClick}>
+        Add to Cart
+      </button>
+    );
   }
 
   render() {
@@ -38,6 +34,7 @@ class ProductPage extends React.Component {
               src={product.imageUrl}
               alt="Product"
             />
+            <div>{product.category_title}</div>
             <div>{product.description}</div>
             <div>${product.price}</div>
             {this.renderCartButton()}
@@ -51,7 +48,7 @@ class ProductPage extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     is_signed_in: state.auth.is_signed_in,
-    product: state.products[ownProps.match.params.id]
+    product: state.products.products[ownProps.match.params.id]
   };
 };
 

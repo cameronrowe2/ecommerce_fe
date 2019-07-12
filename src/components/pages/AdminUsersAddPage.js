@@ -3,6 +3,7 @@ import { adminAddUser } from "../../actions";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import history from "../../history";
+import requireAdminAuth from "../requireAdminAuth";
 
 class AdminUsersAddPage extends React.Component {
   onSubmit = formValues => {
@@ -56,11 +57,13 @@ class AdminUsersAddPage extends React.Component {
 //   return { is_signed_in: state.auth.is_signed_in };
 // };
 
-const adminUsersAddPage = reduxForm({
-  form: "adduser"
-})(AdminUsersAddPage);
-
-export default connect(
-  null,
-  { adminAddUser }
-)(adminUsersAddPage);
+export default requireAdminAuth(
+  connect(
+    null,
+    { adminAddUser }
+  )(
+    reduxForm({
+      form: "adduser"
+    })(AdminUsersAddPage)
+  )
+);

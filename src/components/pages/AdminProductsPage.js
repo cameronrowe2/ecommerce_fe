@@ -3,10 +3,14 @@ import { connect } from "react-redux";
 import { fetchProducts, adminRemoveProduct } from "../../actions";
 import { Link } from "react-router-dom";
 import requireAdminAuth from "../requireAdminAuth";
+import ReactPaginate from "react-paginate";
 
 class ProductsPage extends React.Component {
   componentDidMount() {
-    this.props.fetchProducts();
+    this.props.fetchProducts({
+      page_num: 0,
+      num_products: 20
+    });
   }
 
   renderHeader() {
@@ -66,6 +70,13 @@ class ProductsPage extends React.Component {
     });
   }
 
+  handlePaginationClick = data => {
+    this.props.fetchProducts({
+      page_num: data.selected,
+      num_products: 20
+    });
+  };
+
   render() {
     return (
       <div>
@@ -76,9 +87,24 @@ class ProductsPage extends React.Component {
         <Link to={`/adminproductsimport`} className="ui button">
           Import Products
         </Link>
-        <div className="ui grid">
+        <div className="ui grid adminproducts">
           {this.renderHeader()}
           {this.renderList()}
+        </div>
+        <div id="react-paginate">
+          <ReactPaginate
+            previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={this.props.total_pages}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={this.handlePaginationClick}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+          />
         </div>
       </div>
     );
@@ -87,7 +113,8 @@ class ProductsPage extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    products: Object.values(state.products)
+    products: Object.values(state.products.products),
+    total_pages: state.products.total_pages
     // is_signed_in: state.auth.is_signed_in
   };
 };

@@ -20,6 +20,7 @@ import {
   ADMIN_FETCH_ORDER,
   FETCH_PRODUCTS,
   FETCH_PRODUCT,
+  FETCH_DEALS,
   ADD_PRODUCT_CART,
   REMOVE_PRODUCT_CART,
   CLEAR_PRODUCT_CART,
@@ -29,9 +30,21 @@ import {
   FETCH_ORDER,
   ADMIN_REMOVE_PRODUCT,
   DELIVERY,
-  SET_DELIVERY_OPTION
+  SET_DELIVERY_OPTION,
+  FETCH_WISHLIST,
+  ADD_PRODUCT_WISHLIST,
+  REMOVE_PRODUCT_WISHLIST,
+  FETCH_CATEGORIES,
+  FETCH_CATEGORY,
+  CATEGORIES_SELECT,
+  SET_SEARCH_TERM,
+  ADMIN_REMOVE_CATEGORY,
+  ADMIN_ADD_CATEGORY,
+  ADMIN_EDIT_CATEGORY,
+  FETCH_CURRENT_USER,
+  VERIFY_EMAIL,
+  SEND_VERIFICATION_EMAIL
 } from "./types";
-import { async } from "q";
 
 export const signIn = (values, callback) => async dispatch => {
   const response = await endpoint.post("/signin", values);
@@ -63,10 +76,15 @@ export const isSignedIn = () => async dispatch => {
   dispatch({ type: IS_SIGNED_IN, payload: response.data });
 };
 
-export const fetchProducts = () => async dispatch => {
-  const response = await endpoint.get("/products");
+export const fetchProducts = (values, callback) => async dispatch => {
+  const response = await endpoint.post("/products", values);
 
   dispatch({ type: FETCH_PRODUCTS, payload: response.data });
+  if (response.data.success) {
+    if (callback) {
+      callback();
+    }
+  }
 };
 
 export const fetchProduct = id => async dispatch => {
@@ -74,6 +92,12 @@ export const fetchProduct = id => async dispatch => {
     product_id: id
   });
   dispatch({ type: FETCH_PRODUCT, payload: response.data });
+};
+
+export const fetchDeals = () => async dispatch => {
+  const response = await endpoint.post("/deals");
+
+  dispatch({ type: FETCH_DEALS, payload: response.data });
 };
 
 export const addCartProduct = product_id => async dispatch => {
@@ -143,16 +167,22 @@ export const adminSignOut = () => async dispatch => {
   dispatch({ type: ADMIN_SIGN_OUT });
 };
 
-export const adminEditProduct = values => async dispatch => {
+export const adminEditProduct = (values, callback) => async dispatch => {
   const response = await endpoint.post("/admin_edit_product", values);
 
   dispatch({ type: ADMIN_EDIT_PRODUCT, payload: response.data });
+  if (response.data.success) {
+    callback();
+  }
 };
 
-export const adminAddProduct = values => async dispatch => {
+export const adminAddProduct = (values, callback) => async dispatch => {
   const response = await endpoint.post("/admin_add_product", values);
 
   dispatch({ type: ADMIN_ADD_PRODUCT, payload: response.data });
+  if (response.data.success) {
+    callback();
+  }
 };
 
 export const adminFetchUsers = () => async dispatch => {
@@ -232,4 +262,88 @@ export const deliveryOptions = values => async dispatch => {
 
 export const setDeliveryOption = deliveryoption => {
   return { type: SET_DELIVERY_OPTION, payload: deliveryoption };
+};
+
+export const fetchWishlist = () => async dispatch => {
+  const response = await endpoint.post(`/wishlist`);
+
+  dispatch({ type: FETCH_WISHLIST, payload: response.data });
+};
+
+export const addWishlistProduct = product_id => async dispatch => {
+  const response = await endpoint.post("/wishlist_add", { product_id });
+
+  dispatch({ type: ADD_PRODUCT_WISHLIST, payload: response.data });
+};
+
+export const removeWishlistProduct = product_id => async dispatch => {
+  const response = await endpoint.post("/wishlist_remove", { product_id });
+
+  dispatch({ type: REMOVE_PRODUCT_WISHLIST, payload: response.data });
+};
+
+export const fetchCategories = () => async dispatch => {
+  const response = await endpoint.post("/categories");
+
+  dispatch({ type: FETCH_CATEGORIES, payload: response.data });
+};
+
+export const fetchCategory = id => async dispatch => {
+  const response = await endpoint.post("/category", {
+    category_id: id
+  });
+
+  dispatch({ type: FETCH_CATEGORY, payload: response.data });
+};
+
+export const selectCategory = category_id => {
+  return { type: CATEGORIES_SELECT, payload: category_id };
+};
+
+export const setSearchTerm = search_term => {
+  return { type: SET_SEARCH_TERM, payload: search_term };
+};
+
+export const adminAddCategory = (values, callback) => async dispatch => {
+  const response = await endpoint.post("/admin_add_category", values);
+
+  dispatch({ type: ADMIN_ADD_CATEGORY, payload: response.data });
+  if (response.data.success) {
+    callback();
+  }
+};
+
+export const adminRemoveCategory = id => async dispatch => {
+  const response = await endpoint.post("/admin_remove_category", {
+    id
+  });
+
+  dispatch({ type: ADMIN_REMOVE_CATEGORY, payload: response.data });
+};
+
+export const adminEditCategory = (values, callback) => async dispatch => {
+  const response = await endpoint.post("/admin_edit_category", values);
+
+  dispatch({ type: ADMIN_EDIT_CATEGORY, payload: response.data });
+  if (response.data.success) {
+    callback();
+  }
+};
+
+export const fetchCurrentUser = () => async dispatch => {
+  const response = await endpoint.post("/current_user");
+
+  dispatch({ type: FETCH_CURRENT_USER, payload: response.data });
+};
+
+export const verifyEmail = email_hash => async dispatch => {
+  const response = await endpoint.post("/verify_email", { email_hash });
+
+  dispatch({ type: VERIFY_EMAIL, payload: response.data });
+};
+
+export const sendVerificationEmail = callback => async dispatch => {
+  const response = await endpoint.post("/send_verification_email");
+
+  dispatch({ type: SEND_VERIFICATION_EMAIL, payload: response.data });
 };

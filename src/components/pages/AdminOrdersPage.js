@@ -39,7 +39,7 @@ class AdminOrdersPage extends React.Component {
     return (
       <div>
         <h1>Orders</h1>
-        <div className="ui grid">
+        <div className="ui grid adminorders">
           {this.renderHeader()}
           {this.renderOrders()}
         </div>

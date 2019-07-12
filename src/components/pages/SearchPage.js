@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  signIn,
-  signOut,
   fetchProducts,
   addCartProduct,
   fetchCategories,
@@ -11,20 +9,73 @@ import {
 import { Link } from "react-router-dom";
 import ProductCategories from "../ProductCategories";
 import ReactPaginate from "react-paginate";
-import Product from "../Product";
 
-class ProductsPage extends React.Component {
+class SearchPage extends React.Component {
   componentDidMount() {
     this.props.fetchProducts({
       page_num: 0,
-      num_products: 16
+      num_products: 16,
+      search_term: this.props.match.params.term
     });
     this.props.fetchCategories();
   }
 
+  renderCartButton(product_id) {
+    // if (this.props.is_signed_in) {
+    return (
+      <button
+        className="ui button cart"
+        onClick={() => {
+          this.props.addCartProduct(product_id);
+        }}
+      >
+        Add to Cart
+      </button>
+    );
+    // } else {
+    // return null;
+    // }
+  }
+
+  renderWishlistButton(product_id) {
+    if (this.props.is_signed_in) {
+      return (
+        <button
+          className="ui button wishlist"
+          onClick={() => {
+            this.props.addWishlistProduct(product_id);
+          }}
+        >
+          Add to Wishlist
+        </button>
+      );
+    } else {
+      return null;
+    }
+  }
+
   renderList() {
     return this.props.products.map(product => {
-      return <Product key={product.id} product={product} />;
+      return (
+        <div className="four wide column" key={product.id}>
+          <i />
+          <div>
+            <Link className="ui large" to={`/products/${product.id}`}>
+              {product.title}
+            </Link>
+            <img
+              className="ui image"
+              style={{ height: "100px" }}
+              src={product.imageUrl}
+              alt="Product"
+            />
+            {/* <div>{product.description}</div> */}
+            <div>${product.price}</div>
+            {this.renderCartButton(product.id)}
+            {this.renderWishlistButton(product.id)}
+          </div>
+        </div>
+      );
     });
   }
 
@@ -32,7 +83,8 @@ class ProductsPage extends React.Component {
     this.props.fetchProducts({
       page_num: data.selected,
       num_products: 16,
-      category_id: this.props.categories.selected
+      category_id: this.props.categories.selected,
+      search_term: this.props.match.params.term
     });
   };
 
@@ -82,11 +134,9 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
-    signIn,
-    signOut,
     fetchProducts,
     addCartProduct,
     fetchCategories,
     addWishlistProduct
   }
-)(ProductsPage);
+)(SearchPage);

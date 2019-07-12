@@ -3,9 +3,9 @@
   padding-bottom: 10px;
 }
 
-body {
+/* body {
   margin: 40px;
-}
+} */
 
 .cart-wrapper {
   display: grid;
@@ -15,4 +15,138 @@ body {
 
 .cart-item {
   /* padding: 20px; */
+}
+
+#react-paginate {
+  text-align: center;
+}
+
+#react-paginate ul {
+  display: inline-block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#react-paginate li {
+  display: inline-block;
+  padding: 3px;
+}
+
+.ui.form.search-bar-form {
+  display: inherit;
+}
+
+.header-menu {
+  background-color: #2d3561;
+}
+
+.admin-header-menu {
+  background-color: black;
+}
+
+.ui.secondary.pointing.menu .item {
+  color: white;
+}
+
+.ui.secondary.pointing.menu a.item:hover {
+  color: #ffb961;
+}
+
+.ui.container.content {
+  margin-top: 20px;
+}
+
+.ui.big.product-title {
+  color: #2d3561;
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+
+.ui.button.cart {
+  background-color: #ffb961;
+  color: #2d3561;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.ui.button.cart:hover {
+  color: #c05c7e;
+}
+.ui.button.primary {
+  background-color: #2d3561;
+}
+
+.ui.button.primary:hover {
+  background-color: #2d3561;
+}
+
+.ui.grid.cart > div,
+.ui.grid.adminproducts > div,
+.ui.grid.adminusers > div,
+.ui.grid.adminorders > div,
+.ui.grid.admincategories > div {
+  border-bottom: 1px solid #ddd;
+}
+
+.ui.grid.cart div:last-child,
+.ui.grid.cart div:nth-last-child(2),
+.ui.grid.cart div:nth-last-child(3),
+.ui.grid.cart div:nth-last-child(4),
+.ui.grid.cart div:nth-last-child(5) {
+  border-bottom: none;
+}
+
+.email-validation {
+  background-color: #ffb961;
+  padding-top: 10px;
+  height: 40px;
+}
+
+.wide.column.product {
+  border: 0.5px solid #dddddd;
+  margin-top: -1px;
+  margin-left: -1px;
+}
+
+.large-button {
+  border: 1px solid #cccccc;
+  margin-top: -1px;
+  margin-left: -1px;
+  height: 150px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.large-button > div {
+  color: black;
+}
+
+.large-button:hover {
+  background-color: #eeeeee;
+}
+
+.banner {
+  height: 300px;
+  display: flex !important;
+  align-items: center;
+  /* justify-content: center; */
+  margin-left: 80px;
+  /* color: white; */
+}
+
+.banner-parent {
+  /* background-color: #f3826f; */
+  /* border-radius: 20px; */
+}
+
+.ui.container.content {
+  background-color: white;
+  padding: 50px;
+}
+
+body {
+  background-color: #00000005;
 }

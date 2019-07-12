@@ -8,7 +8,10 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case DELIVERY:
-      return { options: action.payload.data.services.service };
+      return {
+        options: action.payload.data.auspost.services.service,
+        address: action.payload.data.address
+      };
     case SET_DELIVERY_OPTION:
       const option = state.options.filter(
         option => option.code === action.payload

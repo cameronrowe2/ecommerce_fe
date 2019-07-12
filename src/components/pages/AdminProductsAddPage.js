@@ -1,26 +1,38 @@
 import React from "react";
-import { adminAddProduct } from "../../actions";
+import { adminAddProduct, fetchCategories } from "../../actions";
 import { connect } from "react-redux";
 import AdminProductsForm from "../AdminProductsForm";
 import requireAdminAuth from "../requireAdminAuth";
+import history from "../../history";
 
 class AdminProductsEditPage extends React.Component {
+  componentDidMount() {
+    this.props.fetchCategories();
+  }
+
   onSubmit = formValues => {
-    this.props.adminAddProduct(formValues);
+    this.props.adminAddProduct(formValues, () => {
+      history.push("/adminproducts");
+    });
   };
 
   render() {
-    return <AdminProductsForm onSubmit={this.onSubmit} />;
+    return (
+      <AdminProductsForm
+        categories={this.props.categories}
+        onSubmit={this.onSubmit}
+      />
+    );
   }
 }
 
-// const mapStateToProps = (state, ownProps) => {
-//   return { product: state.products[ownProps.match.params.id] };
-// };
+const mapStateToProps = state => {
+  return { categories: Object.values(state.categories.categories) };
+};
 
 export default requireAdminAuth(
   connect(
-    null,
-    { adminAddProduct }
+    mapStateToProps,
+    { adminAddProduct, fetchCategories }
   )(AdminProductsEditPage)
 );

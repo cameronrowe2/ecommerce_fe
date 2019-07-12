@@ -27,9 +27,29 @@ class Delivery extends Component {
         className="ui form error"
       >
         <Field
-          name="to_postcode"
+          name="address"
+          component={this.renderInput}
+          label="Destination Address"
+        />
+        <Field
+          name="suburb"
+          component={this.renderInput}
+          label="Destination Suburb"
+        />
+        <Field
+          name="postcode"
           component={this.renderInput}
           label="Destination Postcode"
+        />
+        <Field
+          name="country"
+          component={this.renderInput}
+          label="Destination Country"
+        />
+        <Field
+          name="email"
+          component={this.renderInput}
+          label="Email Address"
         />
         <button className="ui button primary">Submit</button>
       </form>

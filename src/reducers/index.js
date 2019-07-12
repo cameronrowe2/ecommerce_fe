@@ -5,6 +5,11 @@ import ordersReducer from "./ordersReducer";
 import cartReducer from "./cartReducer";
 import usersReducer from "./usersReducer";
 import deliveryReducer from "./deliveryReducer";
+import wishlistReducer from "./wishlistReducer";
+import categoriesReducer from "./categoriesReducer";
+import searchReducer from "./searchReducer";
+import userReducer from "./userReducer";
+import dealsReducer from "./dealsReducer";
 import { reducer as formReducer } from "redux-form";
 
 export default combineReducers({
@@ -14,5 +19,10 @@ export default combineReducers({
   form: formReducer,
   orders: ordersReducer,
   users: usersReducer,
-  delivery: deliveryReducer
+  delivery: deliveryReducer,
+  wishlist: wishlistReducer,
+  categories: categoriesReducer,
+  search: searchReducer,
+  user: userReducer,
+  deals: dealsReducer
 });
